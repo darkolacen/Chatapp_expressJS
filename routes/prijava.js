@@ -11,7 +11,8 @@ router.get('/', function(req, res, next) {
 router.post('/forma', function(req, res, next) {
   res.render('prijava', {
     naslov: "Naslov",
-    ime: req.body.ime
+    ime: req.body.ime,
+    stevilo: 4
   });
 });
 

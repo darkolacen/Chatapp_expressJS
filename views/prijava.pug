@@ -4,3 +4,9 @@ html
     form(action='/prijava/forma' method='post')
       input(type='text' name='ime')
       input(type='submit' value='Potrdi')
+        
+    - for(var i = 0; i < stevilo; i++){
+    
+    p #{ime}
+    
+    - }
