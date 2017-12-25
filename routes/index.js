@@ -1,10 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var http = require('http'),
-	url = require('url'),
-	fs = require('fs');
+  	url = require('url'),
+  	fs = require('fs');
+var JFile=require('jfile');
 
-var messages = ["hello"];
+var messages_arr=new JFile("messages.txt");
+var messages = messages_arr.lines;
 var clients = [];
 
 
@@ -29,6 +31,10 @@ router.get('/poll/*', function(req, res, next) {
 });
 router.post('/newmsg', function(req, res, next) {
   var msg = messages.push(unescape(req.body.sporocilo));
+  var file = fs.createWriteStream('messages.txt');
+  file.on('error', function(err) {});
+  messages.forEach(function(v) { file.write(v + '\n'); });
+  file.end();
   while(clients.length > 0) {
 		var client = clients.pop();
 		client.end(JSON.stringify( {
