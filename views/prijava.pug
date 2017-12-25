@@ -1,7 +1,6 @@
 html
   body
-    h1 #{naslov}
-    form(action='/prijava' method='post')
-      input(type='text' name='ime')
+    h1 #{naslov} #{ime}
+    form(action='/prijava/forma' method='post')
       input(type='text' name='ime')
       input(type='submit' value='Potrdi')

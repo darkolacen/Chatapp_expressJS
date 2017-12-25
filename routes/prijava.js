@@ -8,4 +8,11 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.post('/forma', function(req, res, next) {
+  res.render('prijava', {
+    naslov: "Naslov",
+    ime: req.body.ime
+  });
+});
+
 module.exports = router;
