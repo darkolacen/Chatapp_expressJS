@@ -39,7 +39,7 @@ passport.use(new GoogleStrategy({
     //           }
     //     });
     //   });
-
+    console.log(profile.displayName);
     var user = {
       g_id: profile.id,
       name: profile.displayName,
@@ -55,9 +55,13 @@ router.get('/google', passport.authenticate('google', { successRedirect: '/',sco
 }));
 
 router.get( '/google/callback', passport.authenticate( 'google', {
-        successRedirect: '/auth/google/success',
-        failureRedirect: '/auth/google/failure'
+        successRedirect: '/prijava/google/success',
+        failureRedirect: '/prijava/google/failure'
 }));
+
+router.get('/google/success', function(req, res, next) {
+  res.send('Success');
+});
 
 
 
