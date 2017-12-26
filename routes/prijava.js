@@ -61,16 +61,10 @@ router.get( '/google/callback', passport.authenticate('google', {
     // Authenticated successfully
 
     req.session.user = req.user;
-    res.redirect('/prijava/google/success');
+    res.redirect('/');
   });
 
-router.get('/google/success', function(req, res, next) {
-  res.render('prijava', {
-    id: req.session.user.g_id,
-    name: req.session.user.name,
-    email: req.session.user.email
-  });
-});
+
 
 
 

@@ -8,13 +8,21 @@ var JFile=require('jfile');
 var messages_arr=new JFile("messages.txt");
 var messages = messages_arr.lines;
 var clients = [];
+function isUserAuthenticated(req,res,next){
+if(req.session.user){
+return next();
+}
+res.redirect("/prijava/google");
+}
 
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', isUserAuthenticated, function(req, res, next) {
   res.render('index', {
-    name: req.session.user.name
+    id: req.session.user.g_id,
+    name: req.session.user.name,
+    email: req.session.user.email
   });
 });
 router.get('/poll/*', function(req, res, next) {
