@@ -14,7 +14,7 @@ var clients = [];
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', {
-    messages: messages
+    name: req.session.user.name
   });
 });
 router.get('/poll/*', function(req, res, next) {
