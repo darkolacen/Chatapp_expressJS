@@ -50,17 +50,26 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-router.get('/google', passport.authenticate('google', { successRedirect: '/',scope:
-  ['email']
+router.get('/google', passport.authenticate('google', { scope:
+  ['openid email profile']
 }));
 
-router.get( '/google/callback', passport.authenticate( 'google', {
-        successRedirect: '/prijava/google/success',
-        failureRedirect: '/prijava/google/failure'
-}));
+router.get( '/google/callback', passport.authenticate('google', {
+    failureRedirect: '/login'
+  }),
+  function(req, res) {
+    // Authenticated successfully
+
+    req.session.user = req.user;
+    res.redirect('/prijava/google/success');
+  });
 
 router.get('/google/success', function(req, res, next) {
-  res.send('Success');
+  res.render('prijava', {
+    id: req.session.user.g_id,
+    name: req.session.user.name,
+    email: req.session.user.email
+  });
 });
 
 
