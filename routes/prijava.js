@@ -64,6 +64,16 @@ router.get( '/google/callback', passport.authenticate('google', {
     res.redirect('/');
   });
 
+  function isUserAuthenticated(req,res,next){
+    if(req.session.user){
+      res.redirect("/");
+    }
+    return next();
+  }
+  router.get('/', isUserAuthenticated, function(req, res, next) {
+    res.render('prijava');
+  });
+
 
 
 

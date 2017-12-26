@@ -1,10 +1,5 @@
-html
-  body
-    h1 id : #{id}
-    h1 ime : #{name}
-    h1 email : #{email}
-    form(action='/prijava/forma' method='post')
-      input(type='text' name='ime')
-      input(type='submit' value='Potrdi')
-        
+extends layout
+
+block content
+  button.btn-si.btn-google(onclick="location.href='/prijava/google';") sign in with Google
     

@@ -9,10 +9,10 @@ var messages_arr=new JFile("messages.txt");
 var messages = messages_arr.lines;
 var clients = [];
 function isUserAuthenticated(req,res,next){
-if(req.session.user){
-return next();
-}
-res.redirect("/prijava/google");
+  if(req.session.user){
+    return next();
+  }
+  res.redirect("/prijava");
 }
 
 
