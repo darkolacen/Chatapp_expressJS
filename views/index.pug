@@ -1,10 +1,15 @@
 extends layout
 
 block content
-  h1 name : #{name}
+  h1 name : #{user.name}
 
   form(action='/newmsg' method='post')
     input(type='text' name='author')
     input(type='text' name='sporocilo')
     input(type='submit' value='Potrdi')
-  textarea#output(style='height: 400px; width: 100%; background: #FFF;' disabled="disabled")
+  //- textarea#output(style='height: 400px; width: 100%; background: #FFF;' disabled="disabled")
+  
+  ul
+    each sporocilo in sporocila
+      li= sporocilo
+      
