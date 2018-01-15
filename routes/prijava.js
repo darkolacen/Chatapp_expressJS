@@ -14,38 +14,40 @@ passport.use(new GoogleStrategy({
   },
   function(request, accessToken, refreshToken, profile, done) {
     //TODO: more v bazo al pa nekam dodat usera. Ce ze obstaja pa nic
-    // MongoClient.connect(url, function(err, db) {
-    //   if (err) throw err;
-    //   db.collection("mycol").findOne({
-    //           'g_id': profile.id
-    //       }, function(err, user) {
-    //           if (err) {
-    //               return done(err);
-    //           }
-    //           if (!user) {
-    //               var user = {
-    //                   g_id: profile.id
-    //                   name: profile.displayName,
-    //                   email: profile.emails[0].value,
-    //               };
-    //               db.collection("mycol").insertOne(user, function(err, res) {
-    //                 if (err) throw err;
-    //                 console.log("1 document inserted");
-    //                 db.close();
-    //               });
-    //           } else {
-    //               //found user. Return
-    //               return done(err, user);
-    //           }
-    //     });
-    //   });
-    console.log(profile.displayName);
-    var user = {
-      g_id: profile.id,
-      name: profile.displayName,
-      email: profile.emails[0].value
-    };
-    return done(null, user);
+    MongoClient.connect(url, function(err, client) {
+      var db = client.db('mydb');
+      if (err) throw err;
+      db.collection("Users").findOne({
+              'g_id': profile.id
+          }, function(err, user) {
+              if (err) {
+                  return done(err);
+              }
+              if (!user) {
+                  var user = {
+                    g_id: profile.id,
+                    name: profile.displayName,
+                    email: profile.emails[0].value
+                  };
+                  db.collection("Users").insertOne(user, function(err, res) {
+                    if (err) throw err;
+                    console.log("1 document inserted");
+                    client.close();
+                  });
+                  return done(err, user);
+              } else {
+                  //found user. Return
+                  return done(err, user);
+              }
+        });
+      });
+    // console.log(profile.displayName);
+    // var user = {
+    //   g_id: profile.id,
+    //   name: profile.displayName,
+    //   email: profile.emails[0].value
+    // };
+    // return done(null, user);
 
   }
 ));

@@ -1,10 +1,11 @@
-// var counter = 0;
-// 	var poll = function() {
-// 		$.getJSON('/poll/'+counter, function(response) {
-// 			 counter = response.count;
-// 			 var elem = $('#output');
-// 			 elem.text(elem.text() + response.append);
-// 			 poll();
-// 		});
-// 	}
-// 	poll();
+$(function () {
+    var socket = io();
+    $('form').submit(function(){
+      socket.emit('chat message', $('#m').val());
+      
+      return true;
+    });
+    socket.on('chat message', function(msg){
+      $('#messages').append($('<li>').text(msg));
+    });
+  });
