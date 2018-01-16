@@ -4,12 +4,12 @@ $(function () {
 
     var now = new Date();
     // Cas in datum v JSON format
-    var jsonDate = now.toJSON();
+
       var msg ={
       	user_g_id: $('#g_id').val(),
       	name: $('#name').val(),
       	msg_content: $('#m').val(),
-      	date_time: jsonDate
+      	date_time: now
       }
       socket.emit('chat message', msg);
       $('#m').val('');
@@ -17,5 +17,6 @@ $(function () {
     });
     socket.on('chat message', function(msg){
       $('#messages').append($('<li>').text(msg.name + " : " + msg.msg_content));
+      $(window).scrollTop( $("#top").offset().top );
     });
   });

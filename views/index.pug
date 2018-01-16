@@ -1,13 +1,12 @@
 extends layout
 
 block content
-  h1 name : #{user.name}
-  h1 Google id : #{user.g_id}
-  h1 email : #{user.email}
 
   ul#messages
     each sporocilo in allMessages
       li= sporocilo.name + " : " + sporocilo.msg_content
+
+  #top
 
   form(action='#' method='post')
     input#m(autocomplete='off' name='sporocilo')
