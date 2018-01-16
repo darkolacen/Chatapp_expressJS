@@ -7,12 +7,11 @@ block content
 
   ul#messages
     each sporocilo in allMessages
-      li= sporocilo.msg_content
+      li= sporocilo.name + " : " + sporocilo.msg_content
 
-  form(action='/newmsg' method='post')
+  form(action='#' method='post')
     input#m(autocomplete='off' name='sporocilo')
-    input#send(type='submit' value='send')
-    
-  //- textarea#output(style='height: 400px; width: 100%; background: #FFF;' disabled="disabled")
-  
+    input#name(type = 'hidden' value=user.name)
+    input#g_id(type = 'hidden' value=user.g_id)
+    input#send(type='submit' value='send')  
       
