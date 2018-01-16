@@ -6,11 +6,6 @@ var http = require('http').Server(express),
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/mydb";
 
-
-
-
-
-
 function isUserAuthenticated(req, res, next) {
 
   if (req.session.user) {
