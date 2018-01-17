@@ -2,10 +2,12 @@ extends layout
 
 block content
 
-	form(action='/chatRoom/addUser' method='POST')
-		input(type='text' name='email')
-		input(type = 'hidden' name='chatRoomID' value=chatRoomID)
-		input(type='submit')
+	nav.navbar.navbar-light.bg-light.fixed-top
+		span.navbar-brand= chatRoomName
+		form.form-inline.my-2.my-lg-0(action='/chatRoom/addUser' method='POST')
+			input.form-control.mr-sm-2(type='text' name='email' placeholder='Add User (E-mail)')
+			input(type = 'hidden' name='chatRoomID' value=chatRoomID)
+			input.btn.btn-outline-success.my-2.my-sm-0(type='submit')
 
 	ul#messages
 		each sporocilo in allMessages
@@ -14,7 +16,7 @@ block content
 	#top
 
 	form#chat(action='#' method='post')
-		input#m(autocomplete='off' name='sporocilo')
+		input#m(autocomplete='off' name='sporocilo' placeholder='Type in..')
 		input#name(type = 'hidden' value=user.name)
 		input#g_id(type = 'hidden' value=user.g_id)
 		input#chatRoomID(type = 'hidden' value=chatRoomID)

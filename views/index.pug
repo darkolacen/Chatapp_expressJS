@@ -11,7 +11,7 @@ html
 				li
 					form(action='/chatRoom' method='POST')
 						input(type='hidden' name='chatRoomID' value=chatRoom._id)
-						input(type="submit" value=chatRoom.name)
+						input(type="submit" name='chatRoomName' value=chatRoom.name)
 
 		form(action='new' method='post')
 			input(type='text' name='name')

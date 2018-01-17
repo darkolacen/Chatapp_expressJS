@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var chatRoom = require('./routes/chatRoom');
 var index = require('./routes/index');
-var users = require('./routes/users');
 var prijava = require('./routes/prijava');
 var passport = require('passport');
 var cookieParser = require('cookie-parser');
@@ -43,7 +42,6 @@ passport.deserializeUser(function(user, done) {
 });
 
 app.use('/', index);
-app.use('/users', users);
 app.use('/prijava', prijava);
 app.use('/chatRoom', chatRoom);
 

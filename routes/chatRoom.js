@@ -20,6 +20,7 @@ function isUserAuthenticated(req, res, next) {
 router.post('/', isUserAuthenticated, function(req, res, next) {
   var allMessages = null;
   var chatRoomID = req.body.chatRoomID;
+  var chatRoomName = req.body.chatRoomName;
   MongoClient.connect(url, function(err, client) {
     var db = client.db('mydb');
     if (err) throw err;
@@ -30,7 +31,8 @@ router.post('/', isUserAuthenticated, function(req, res, next) {
       res.render('chatRoom', {
         user: req.session.user,
         allMessages: result,
-        chatRoomID: chatRoomID
+        chatRoomID: chatRoomID,
+        chatRoomName: chatRoomName
       });
 
       client.close();

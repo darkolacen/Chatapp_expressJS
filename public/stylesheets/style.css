@@ -6,6 +6,9 @@
 a {
   color: #00B7FF;
 }
+body{
+  padding-top: 4.25rem;
+}
 .btn-si {
   background-position: 1em;
   background-repeat: no-repeat;
