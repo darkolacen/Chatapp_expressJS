@@ -5,6 +5,7 @@ var http = require('http').Server(express),
   fs = require('fs');
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/mydb";
+var ObjectId = require('mongodb').ObjectId;
 
 function isUserAuthenticated(req, res, next) {
 
@@ -16,43 +17,45 @@ function isUserAuthenticated(req, res, next) {
 
 
 
-router.get('/', isUserAuthenticated, function(req, res, next) {
+router.post('/', isUserAuthenticated, function(req, res, next) {
+  var allMessages = null;
+  var chatRoomID = req.body.chatRoomID;
   MongoClient.connect(url, function(err, client) {
     var db = client.db('mydb');
     if (err) throw err;
     
-    db.collection("ChatRooms").find({"users" : { $in : [req.session.user.email]  } }).toArray(function(err, result) {
+    db.collection("Messages").find({"chatRoomID" : chatRoomID}).toArray(function(err, result) {
       if (err) throw err;
       
-      res.render('index', {
+      res.render('chatRoom', {
         user: req.session.user,
-        chatRooms: result
+        allMessages: result,
+        chatRoomID: chatRoomID
       });
+
       client.close();
     });
+    
   });
+  
 });
 
-router.post('/new', isUserAuthenticated, function(req, res, next) {
+router.post('/addUser', isUserAuthenticated, function(req, res, next) {
+  var addEmail = req.body.email;
+  var chatRoomID = req.body.chatRoomID;
   MongoClient.connect(url, function(err, client) {
     var db = client.db('mydb');
     if (err) throw err;
-
-    var now = new Date();
-    var jsonDate = now.toJSON();
-    var chatRoom = {
-      name: req.body.name,
-      users: [req.session.user.email],
-      date: jsonDate
-    }
     
-    db.collection("ChatRooms").insertOne(chatRoom, function(err, res) {
+    db.collection("ChatRooms").updateOne({_id: ObjectId(chatRoomID)}, { $push: { users: addEmail } }, function(err, res) {
         if (err) throw err;
-        console.log("1 ChatRoom inserted");
+        console.log("1 email updated");
         client.close();
     });
+
   });
   res.redirect('/');
+  
 });
 
 

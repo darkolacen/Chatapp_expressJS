@@ -1,16 +1,18 @@
-extends layout
+doctype html
+html
+	head
+		title Chat Rooms
+		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+		
+	body
 
-block content
+		ul
+			each chatRoom in chatRooms
+				li
+					form(action='/chatRoom' method='POST')
+						input(type='hidden' name='chatRoomID' value=chatRoom._id)
+						input(type="submit" value=chatRoom.name)
 
-  ul#messages
-    each sporocilo in allMessages
-      li= sporocilo.name + " : " + sporocilo.msg_content
-
-  #top
-
-  form(action='#' method='post')
-    input#m(autocomplete='off' name='sporocilo')
-    input#name(type = 'hidden' value=user.name)
-    input#g_id(type = 'hidden' value=user.g_id)
-    input#send(type='submit' value='send')  
-      
+		form(action='new' method='post')
+			input(type='text' name='name')
+			input(type='submit')

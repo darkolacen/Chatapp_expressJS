@@ -27,6 +27,7 @@ var io = require('socket.io')(server);
 
 //app.set('socketio', io);
 
+
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
     MongoClient.connect(url, function(err, client) {
@@ -40,7 +41,7 @@ io.on('connection', function(socket){
       });
       
     });
-    io.emit('chat message', msg);
+    io.emit(msg.chatRoomID, msg);
   });
 });
 /**

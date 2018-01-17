@@ -1,0 +1,21 @@
+extends layout
+
+block content
+
+	form(action='/chatRoom/addUser' method='POST')
+		input(type='text' name='email')
+		input(type = 'hidden' name='chatRoomID' value=chatRoomID)
+		input(type='submit')
+
+	ul#messages
+		each sporocilo in allMessages
+			li= sporocilo.name + " : " + sporocilo.msg_content
+
+	#top
+
+	form#chat(action='#' method='post')
+		input#m(autocomplete='off' name='sporocilo')
+		input#name(type = 'hidden' value=user.name)
+		input#g_id(type = 'hidden' value=user.g_id)
+		input#chatRoomID(type = 'hidden' value=chatRoomID)
+		input#send(type='submit' value='send')
