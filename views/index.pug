@@ -3,16 +3,26 @@ html
 	head
 		title Chat Rooms
 		script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
-		
+		link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous")
+		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous")
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous")
 	body
+		.container
+			.row
+				.col-sm-2
+				.col-sm-8
+					.jumbotron
+						h1 Chat Rooms
 
-		ul
-			each chatRoom in chatRooms
-				li
-					form(action='/chatRoom' method='POST')
-						input(type='hidden' name='chatRoomID' value=chatRoom._id)
-						input(type="submit" name='chatRoomName' value=chatRoom.name)
+					ul.list-group
+						each chatRoom in chatRooms
+							li
+								form(action='/chatRoom' method='POST')
+									input(type='hidden' name='chatRoomID' value=chatRoom._id)
+									input.list-group-item.list-group-item-action(type="submit" name='chatRoomName' value=chatRoom.name)
 
-		form(action='new' method='post')
-			input(type='text' name='name')
-			input(type='submit')
+					br
+					form.form-inline(action='new' method='post')
+						input.form-control(type='text' name='name')
+						input.btn.btn-primary(type='submit')
+				.col-sm-2
