@@ -18,12 +18,20 @@ function isUserAuthenticated(req, res, next) {
 
 
 router.post('/', isUserAuthenticated, function(req, res, next) {
-  var allMessages = null;
   var chatRoomID = req.body.chatRoomID;
   var chatRoomName = req.body.chatRoomName;
+  var allUsers = null;
   MongoClient.connect(url, function(err, client) {
     var db = client.db('mydb');
     if (err) throw err;
+
+    db.collection("ChatRooms").findOne({_id: ObjectId(chatRoomID)}, (err, result) => {
+      console.log(result.users);
+      allUsers = result.users;
+      console.log(allUsers);
+      client.close();
+    });
+      
     
     db.collection("Messages").find({"chatRoomID" : chatRoomID}).toArray(function(err, result) {
       if (err) throw err;
@@ -32,7 +40,8 @@ router.post('/', isUserAuthenticated, function(req, res, next) {
         user: req.session.user,
         allMessages: result,
         chatRoomID: chatRoomID,
-        chatRoomName: chatRoomName
+        chatRoomName: chatRoomName,
+        allUsers: allUsers
       });
 
       client.close();

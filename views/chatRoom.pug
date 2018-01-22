@@ -4,6 +4,11 @@ block content
 
 	nav.navbar.navbar-light.bg-light.fixed-top
 		span.navbar-brand= chatRoomName
+		span.nav-item.dropdown
+			a.nav-link.dropdown-toggle(href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") All Users
+			.dropdown-menu(aria-labelledby="navbarDropdown")
+				each user in allUsers
+					a.dropdown-item(href="#")= user
 		form.form-inline.my-2.my-lg-0(action='/chatRoom/addUser' method='POST')
 			input.form-control.mr-sm-2(type='text' name='email' placeholder='Add User (E-mail)')
 			input(type = 'hidden' name='chatRoomID' value=chatRoomID)
