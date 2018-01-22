@@ -9,7 +9,7 @@ var url = "mongodb://localhost:27017/mydb";
 passport.use(new GoogleStrategy({
     clientID:     '904984450856-bhv9bnsihcd2u31br89dq5132olsah0i.apps.googleusercontent.com',
     clientSecret: 'KhupUOZ2uzDc3mbu3_nJJT6M',
-    callbackURL: "http://localhost:3000/prijava/google/callback",
+    callbackURL: "https://stormy-falls-99574.herokuapp.com/prijava/google/callback",
     passReqToCallback   : true
   },
   function(request, accessToken, refreshToken, profile, done) {
