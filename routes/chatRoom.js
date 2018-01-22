@@ -42,6 +42,8 @@ router.post('/', isUserAuthenticated, function(req, res, next) {
   
 });
 
+
+
 router.post('/addUser', isUserAuthenticated, function(req, res, next) {
   var addEmail = req.body.email;
   var chatRoomID = req.body.chatRoomID;
@@ -59,6 +61,8 @@ router.post('/addUser', isUserAuthenticated, function(req, res, next) {
   res.redirect('/');
   
 });
+
+
 
 
 
