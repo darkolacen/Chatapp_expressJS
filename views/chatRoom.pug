@@ -8,11 +8,33 @@ block content
 			a.nav-link.dropdown-toggle(href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") All Users
 			.dropdown-menu(aria-labelledby="navbarDropdown")
 				each user in allUsers
-					a.dropdown-item(href="#")= user
+					span.dropdown-item= user
+		span.nav-item.dropdown
+			a.nav-link.dropdown-toggle(href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") Files
+			.dropdown-menu(aria-labelledby="navbarDropdown")
+				button.dropdown-item(type="button" data-toggle="modal" data-target="#myModal") Upload
+				.dropdown-divider
+				each file in allFiles
+					a.dropdown-item(href="/chatRoom/download/fileName/"+file.fileName+"/originalName/"+file.originalName)= file.originalName
+				
 		form.form-inline.my-2.my-lg-0(action='/chatRoom/addUser' method='POST')
 			input.form-control.mr-sm-2(type='text' name='email' placeholder='Add User (E-mail)')
 			input(type = 'hidden' name='chatRoomID' value=chatRoomID)
 			input.btn.btn-outline-success.my-2.my-sm-0(type='submit')
+
+	#myModal.modal.fade(role="dialog")
+		.modal-dialog
+			.modal-content
+				.modal-header
+					h4.modal-title Upload File
+					button(type="button" class="close" data-dismiss="modal") &times;
+				.modal-body
+					form(action='chatRoom/upload' method='POST' enctype="multipart/form-data")
+						input(name="dat" type="file")
+						input(type='hidden' name='chatRoomID' value=chatRoomID)
+						input(type='submit' class="btn btn-primary" value='Upload')
+				//- .modal-footer
+				//- 	button(type="button" class="btn btn-default" data-dismiss="modal") close
 
 	ul#messages
 		each sporocilo in allMessages
