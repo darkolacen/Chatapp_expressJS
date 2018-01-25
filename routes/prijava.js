@@ -36,7 +36,6 @@ passport.use(new GoogleStrategy({
                   });
                   return done(err, user);
               } else {
-                  //found user. Return
                   return done(err, user);
               }
         });

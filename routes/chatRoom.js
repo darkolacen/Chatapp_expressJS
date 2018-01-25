@@ -7,7 +7,8 @@ var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/mydb";
 var ObjectId = require('mongodb').ObjectId;
 var multer  = require('multer');
-var upload = multer({ dest: 'uploads/' })
+var upload = multer({ dest: 'uploads/' });
+
 
 
 
@@ -85,6 +86,9 @@ router.post('/addUser', isUserAuthenticated, function(req, res, next) {
     });
 
   });
+
+
+
   res.redirect('/');
   
 });
