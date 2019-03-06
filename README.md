@@ -1,7 +1,7 @@
 ChatApp
 
-Database:mongodb
-Database name: Praktikum
+Database:mongodb<br>
+Database name: Praktikum<br>
 Collections required:
   - ChatRooms
   - Messages
